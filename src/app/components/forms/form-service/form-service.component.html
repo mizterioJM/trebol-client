@@ -1,0 +1,104 @@
+<form [formGroup]="serviceForm" (ngSubmit)="onSubmit($event)">
+  <ion-item>
+    <ion-label>
+      <b> Tipo Ruta </b>
+      <ion-text color="danger">*</ion-text>:
+    </ion-label>
+    <ng-container *ngIf="rutas$ | async as rutas">
+      <ion-select formControlName="ruta" placeholder="Seleccione...">
+        <ion-select-option *ngFor="let ruta of rutas" [value]="ruta.id">
+          {{ ruta.name }}
+        </ion-select-option>
+      </ion-select>
+    </ng-container>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <b> N° Jaula</b>
+      <ion-text color="danger">*</ion-text>:
+    </ion-label>
+    <ng-container *ngIf="jaulas$ | async as jaulas ">
+      <ion-select formControlName="jaula" placeholder="Seleccione...">
+        <ion-select-option *ngFor="let jaula of jaulas" [value]="jaula.id"> {{ jaula.code }} </ion-select-option>
+      </ion-select>
+    </ng-container>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <b> Vehiculo </b>
+      <ion-text color="danger">*</ion-text>:
+    </ion-label>
+    <ng-container *ngIf="vehiculos$ | async as vehicles">
+      <ion-select formControlName="vehicle" placeholder="Seleccione...">
+        <ion-select-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.placa }}</ion-select-option>
+      </ion-select>
+    </ng-container>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <b>Chofer</b>
+      <ion-text color="danger">*</ion-text>:
+    </ion-label>
+    <ng-container *ngIf="user$ | async as user; else sinId">
+      <label class="ion-margin-end"> {{ user.details.name }} {{user.details.lastname}}</label>
+    </ng-container>
+    <ng-template #sinId>
+
+      <ng-container *ngIf=" users$ | async as users ">
+        <ion-select formControlName="chofer" placeholder="Seleccione...">
+          <ion-select-option *ngFor="let user of users" [value]="user.id">
+            {{user.details.name}} {{user.details.lastname}}
+          </ion-select-option>
+        </ion-select>
+
+      </ng-container>
+    </ng-template>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      <b>Apoyo A </b>
+      <ion-text color="danger">*</ion-text>:
+    </ion-label>
+    <ng-container *ngIf="users$ | async as users">
+      <ion-select formControlName="apoyoA" placeholder="Seleccione...">
+        <ion-select-option *ngFor="let user of users" [value]="user.id">
+          {{user.details.name}} {{user.details.lastname}}
+        </ion-select-option>
+      </ion-select>
+    </ng-container>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <b>Apoyo B </b>
+      <small>(opcional)</small>:
+    </ion-label>
+    <ng-container *ngIf="users$ | async as users">
+      <ion-select formControlName="apoyoB" placeholder="Seleccione...">
+        <ion-select-option *ngFor="let user of users" [value]="user.id">
+          {{user.details.name}} {{user.details.lastname}}
+        </ion-select-option>
+      </ion-select>
+    </ng-container>
+  </ion-item>
+  <ion-row>
+    <ion-col size="12">
+      <div class="contenedor">
+        <div class="contenedor-img">
+          <ion-img class="imagen" [src]="photo"></ion-img>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-button (click)="preTakePhoto()" type="button" expand="full" shape="round" color="secondary"
+    class="ion-margin-horizontal">
+    CARGAR IMAGEN
+  </ion-button>
+  <ion-button (click)="formClean()" type="button" expand="full" shape="round" color="warning"
+    class="ion-margin-horizontal">
+    LIMPIAR CAMPOS
+  </ion-button>
+  <ion-button expand="full" color="primary" type="submit" class="ion-margin-vertical" [disabled]="serviceForm.invalid">
+    GUARDAR DATOS
+  </ion-button>
+</form>

@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu-content"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Lista de Trabajadores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ng-container *ngIf="chofer$ | async as choferes">
+    <ion-title color="danger" class="ion-margin-vertical"><b>CHOFER:</b></ion-title>
+
+    <ion-card *ngFor="let chofer of choferes" class="animated fadeIn fast">
+      <ion-item-sliding #item>
+        <ion-item-options side="start">
+          <ion-item-option (click)="editarTrabajador(chofer.id, item)">EDITAR</ion-item-option>
+          <ion-item-option color="danger" (click)="eliminarTrabajador(chofer.id, item)">ELIMINAR</ion-item-option>
+        </ion-item-options>
+        <ion-item>
+          <ion-label class="ion-text-left">
+            <p><small>Nombres y Apellidos:</small></p>
+            <b>{{chofer.details.name}} {{chofer.details.lastname}}</b>
+          </ion-label>
+          <ion-label class="ion-text-right">
+            <p><small>Fecha de Nacimiento:</small></p>
+            <b>{{ chofer.details.fechaNac | fecha: 'YYYY-MM-DD'}}</b>
+          </ion-label>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-card>
+  </ng-container>
+
+  <ng-container *ngIf="apoyo$ | async as apoyos">
+    <ion-title color="danger" class="ion-margin-vertical"><b>APOYO:</b></ion-title>
+    <ion-card *ngFor="let apoyo of apoyos" class="animated fadeIn fast">
+      <ion-item-sliding #item>
+        <ion-item-options side="start">
+          <ion-item-option (click)="editarTrabajador(apoyo.id, item)">EDITAR</ion-item-option>
+          <ion-item-option color="danger" (click)="eliminarTrabajador(apoyo.id, item)">ELIMINAR</ion-item-option>
+        </ion-item-options>
+        <ion-item>
+          <ion-label class="ion-text-left">
+            <p><small>Nombres y Apellidos:</small></p>
+            <b>{{apoyo.details.name}} {{apoyo.details.lastname}}</b>
+          </ion-label>
+          <ion-label class="ion-text-right">
+            <p><small>Fecha de Nacimiento:</small></p>
+            <b> {{apoyo.details.fechaNac | fecha: 'YYYY-MM-DD'}}</b>
+          </ion-label>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-card>
+  </ng-container>
+</ion-content>

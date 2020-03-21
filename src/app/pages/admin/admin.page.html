@@ -1,0 +1,21 @@
+<ion-split-pane contentId="menu-content" when="md" [disabled]="true">
+  <ion-menu contentId="menu-content" menuId="menu-content" side="start" type="overlay">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Menu Administracion</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide *ngFor="let option of menuOpts | async">
+          <ion-item [routerLink]="option.redirectTo">
+            <ion-icon color="primary" slot="start" [name]="option.icon"></ion-icon>
+            <ion-label>{{ option.name }}</ion-label>
+            <ion-icon slot="end" name="chevron-forward"></ion-icon>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="menu-content"></ion-router-outlet>
+</ion-split-pane>

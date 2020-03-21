@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu-content"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">RUTAS</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="salir()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-slides mode="ios" pager="true" [options]="options">
+    <ion-slide>
+      <h1>Rutas Registradas</h1>
+      <ng-container *ngIf="rutas$ | async as rutas">
+
+        <ion-card *ngFor="let ruta of rutas" class="animated fadeIn fast">
+          <ion-item-sliding #item>
+            <ion-item>
+              <ion-label class="ion-text-left">
+                <p><small>TIPO DE RUTA:</small></p>
+                <b>{{ruta.name}}</b>
+              </ion-label>
+              <ion-label class="ion-text-right">
+                <p><small>Descripcion:</small></p>
+                <b>{{ruta.description}}</b>
+              </ion-label>
+            </ion-item>
+            <ion-item-options side="start">
+              <ion-item-option color="danger" (click)="eliminarRuta(ruta.id,item)">
+                Eliminar
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+
+        </ion-card>
+      </ng-container>
+    </ion-slide>
+
+    <ion-slide class="animated fadeIn fast">
+
+      <ion-row style="height: 100%;" class="ion-padding ion-justify-content-center ion-align-items-center">
+
+        <form [formGroup]="rutasForm" (ngSubmit)="registrarRuta($event)">
+          <ion-label class="ion-padding-vertical"><b>DATOS DE LA RUTA</b></ion-label>
+          <ion-item>
+            <ion-label color="primary">Nombre <ion-text color="danger">*</ion-text>:
+            </ion-label>
+            <ion-input style="text-transform:uppercase;" formControlName="name" type="text"
+              onKeyUp="this.value=this.value.toUpperCase();" class="ion-text-right"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Descripcion <small>(opcional)</small>:
+            </ion-label>
+            <ion-input formControlName="description" type="text"></ion-input>
+          </ion-item>
+          <ion-button class="ion-padding-vertical" color="primary" type="submit" expand="full"
+            [disabled]="rutasForm.invalid" shape="round">
+            REGISTRAR RUTA
+          </ion-button>
+        </form>
+
+      </ion-row>
+
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
+
+<ion-footer>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="listarSlide()" expand="full" fill="clear" shape="round">
+          LISTAR
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="registrarSlide()" expand="full" fill="clear" shape="round">
+          REGISTRAR
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

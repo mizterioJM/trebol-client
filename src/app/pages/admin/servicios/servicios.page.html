@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu-content"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="salir()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Registros de Servicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding animated fadeIn fast">
+  <ion-row>
+    <ion-col size="12">
+      <label><b>Seleccione Fecha: </b></label>
+      <ion-card>
+        <ion-item color="tertiary" (click)="openCalendar()">
+          <ion-icon slot="end" name="chevron-forward"></ion-icon>
+          <ion-label> {{fecha}} </ion-label>
+          <ion-icon slot="start" name="calendar"></ion-icon>
+        </ion-item>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <hr size="1px" color="black" class="ion-margin" />
+
+  <ion-list>
+    <ng-container *ngIf="servicios$ | async as servicios">
+      <ion-card *ngFor="let servicio of servicios">
+        <ion-row>
+          <ion-col size="8">
+            <ion-card-header>
+              <ion-card-title> TIPO RUTA: {{ servicio.ruta.name }} </ion-card-title>
+              <ion-card-subtitle> JAULA : {{ servicio.jaula.code }} </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-row>
+                    <ion-col size="12">
+                      Chofer: {{ servicio.chofer.details.name }} {{ servicio.chofer.details.lastname }}
+                    </ion-col>
+                    <ion-col size="12">
+                      Apoyo: {{ servicio.apoyoA.details.name }} {{ servicio.apoyoA.details.lastname }}
+                    </ion-col>
+                    <ion-col size="12" *ngIf="servicio.apoyoB">
+                      Apoyo B: {{ servicio.apoyoB.details.name }} {{ servicio.apoyoB.details.lastname }}
+                    </ion-col>
+                    <ion-col size="12">
+                      <ion-button (click)="editarServicio(servicio)" color="light" expand="full">
+                        EDITAR
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-col>
+          <ion-col size="4" *ngIf="servicio.img_detail[0].base64">
+
+            <div class="contenedor-img">
+              <ion-img-viewer title="" text="" src="data:image/jpeg;base64,{{ servicio.img_detail[0].base64 }}">
+              </ion-img-viewer>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ng-container>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+        <ion-icon slot="end" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> EDITAR </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid class="animated fadeIn fast">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-card>
+        <form [formGroup]="editServicioForm" (ngSubmit)="editarServicio($event)">
+          <ion-item>
+            <ion-label>
+              <b> Tipo Ruta </b>
+              <ion-text color="danger">*</ion-text>:
+            </ion-label>
+            <ng-container *ngIf="rutas$ | async as rutas">
+              <ion-select formControlName="ruta" placeholder="Seleccione...">
+                <ion-select-option *ngFor="let ruta of rutas" [value]="ruta.id">
+                  {{ ruta.name }}
+                </ion-select-option>
+              </ion-select>
+            </ng-container>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <b> N° Jaula</b>
+              <ion-text color="danger">*</ion-text>:
+            </ion-label>
+            <ng-container *ngIf="jaulas$ | async as jaulas ">
+              <ion-select formControlName="jaula" placeholder="Seleccione...">
+                <ion-select-option *ngFor="let jaula of jaulas" [value]="jaula.id"> {{ jaula.code }}
+                </ion-select-option>
+              </ion-select>
+            </ng-container>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <b> Vehiculo </b>
+              <ion-text color="danger">*</ion-text>:
+            </ion-label>
+            <ng-container *ngIf="vehiculos$ | async as vehicles">
+              <ion-select formControlName="vehicle" placeholder="Seleccione...">
+                <ion-select-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.placa }}
+                </ion-select-option>
+              </ion-select>
+            </ng-container>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <b>Chofer</b>
+              <ion-text color="danger">*</ion-text>:
+            </ion-label>
+            <ng-container *ngIf=" usersChofer$ | async as users ">
+              <ion-select formControlName="chofer" placeholder="Seleccione...">
+                <ion-select-option *ngFor="let user of users" [value]="user.id">
+                  {{user.details.name}} {{user.details.lastname}}
+                </ion-select-option>
+              </ion-select>
+            </ng-container>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <b>Apoyo A </b>
+              <ion-text color="danger">*</ion-text>:
+            </ion-label>
+            <ng-container *ngIf="usersApoyo$ | async as users">
+              <ion-select formControlName="apoyoA" placeholder="Seleccione...">
+                <ion-select-option *ngFor="let user of users" [value]="user.id">
+                  {{user.details.name}} {{user.details.lastname}}
+                </ion-select-option>
+              </ion-select>
+            </ng-container>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <b>Apoyo B </b>
+              <small>(opcional)</small>:
+            </ion-label>
+            <ng-container *ngIf="usersApoyo$ | async as users">
+              <ion-select formControlName="apoyoB" placeholder="Seleccione...">
+                <ion-select-option *ngFor="let user of users" [value]="user.id">
+                  {{user.details.name}} {{user.details.lastname}}
+                </ion-select-option>
+              </ion-select>
+            </ng-container>
+          </ion-item>
+
+          <ion-button expand="full" color="primary" type="submit" [disabled]="editServicioForm.invalid">
+            GUARDAR CAMBIOS
+          </ion-button>
+        </form>
+
+      </ion-card>
+
+    </ion-row>
+  </ion-grid>
+
+
+
+
+</ion-content>

@@ -1,7 +1,16 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
+    "paths": {
+      "@myapp-components/*": ["app/components/*"],
+      "@myapp-services/*": ["app/services/*"],
+      "@myapp-interfaces/*": ["app/interfaces/*"],
+      "@myapp-enums/*": ["app/enums/*"],
+      "@myapp-guards/*": ["app/guards/*"],
+      "@myapp-interceptor/*": ["app/interceptors/*"],
+      "@myapp-resolver/*": ["app/resolvers/*"]
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -10,7 +19,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "ES6",
     "typeRoots": [
       "node_modules/@types"
     ],

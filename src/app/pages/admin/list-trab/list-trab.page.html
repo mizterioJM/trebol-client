@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu-content"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Cantidad de dias trabajados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="animated fadeIn fast">
+
+  <ion-row>
+    <ion-col size="12">
+      <label><b>Seleccione Fecha: </b></label>
+      <ion-card>
+        <ion-item color="tertiary" (click)="openCalendar()">
+          <ion-icon slot="end" name="chevron-forward"></ion-icon>
+          <ion-label *ngIf="fecha"><b> {{fecha.from}} - {{ fecha.to }} </b></ion-label>
+          <ion-icon slot="start" name="calendar"></ion-icon>
+        </ion-item>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <hr size="1px" color="black" class="ion-margin" />
+
+  <ng-container *ngIf="chofer$ | async as choferes">
+    <ion-title color="danger" class="ion-margin-vertical"><b>CHOFER:</b></ion-title>
+    <ion-card *ngFor="let chofer of choferes" class="animated fadeIn fast">
+      <ion-item>
+        <ion-label>
+          <p><small>Nombres y Apellidos:</small></p>
+          <b>{{chofer.nombre}} {{chofer.apellido}}</b>
+        </ion-label>
+        <ion-label class="ion-text-right">
+          <p><small>Dias Trabajados:</small></p>
+          <h1><b>{{chofer.dias}}</b></h1>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ng-container>
+
+  <ng-container *ngIf="apoyo$ | async as apoyos">
+    <ion-title color="danger" class="ion-margin-vertical"><b>APOYO:</b></ion-title>
+    <ion-card *ngFor="let apoyo of apoyos" class="animated fadeIn fast">
+      <ion-item>
+        <ion-label>
+          <p><small>Nombres y Apellidos:</small></p>
+          <b>{{apoyo.nombre}} {{apoyo.apellido}}</b>
+        </ion-label>
+        <ion-label class="ion-text-right">
+          <p><small>Dias trabajados:</small></p>
+          <h1><b>{{apoyo.dias}}</b></h1>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ng-container>
+
+</ion-content>

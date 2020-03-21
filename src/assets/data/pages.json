@@ -1,0 +1,26 @@
+[{
+    "icon": "calendar",
+    "name": "SERVICIO",
+    "redirectTo": "/admin/admin/servicios"
+  },
+  {
+    "icon": "person",
+    "name": "TRABAJADOR",
+    "redirectTo": "/admin/admin/trabajador"
+  },
+  {
+    "icon": "car",
+    "name": "VEHICULO",
+    "redirectTo": "/admin/admin/vehiculo"
+  },
+  {
+    "icon": "shuffle",
+    "name": "RUTA",
+    "redirectTo": "/admin/admin/rutas"
+  },
+  {
+    "icon": "compass",
+    "name": "JAULA",
+    "redirectTo": "/admin/admin/jaulas"
+  }
+]

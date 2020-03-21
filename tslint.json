@@ -83,6 +83,8 @@
       "app",
       "page",
       "kebab-case"
-    ]
+    ],
+    "variable-name": false,
+    "prefer-const": false
   }
 }

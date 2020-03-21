@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+        <ion-icon slot="start" name="close"></ion-icon>
+        CERRAR
+      </ion-button>
+    </ion-buttons>
+    <ion-title>EDITAR DATOS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+  <ion-grid class="animated fadeIn fast">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+
+      <form *ngIf="userData" [formGroup]="editTrabForm" (ngSubmit)="enviarDatosModificados($event)">
+        <ion-title class="ion-padding-vertical"><b> DATOS DEL TRABAJADOR </b></ion-title>
+        <ion-item>
+          <ion-label color="primary">N° Documento <ion-text color="danger">*</ion-text>:</ion-label>
+          <ion-input class="ion-text-right" formControlName="nDocument"></ion-input>
+        </ion-item>
+
+        <div formGroupName="details">
+
+          <ion-item>
+            <ion-label color="primary">Nombres <ion-text color="danger">*</ion-text>:</ion-label>
+            <ion-input class="ion-text-right" formControlName="name"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label color="primary">Apellidos<ion-text color="danger">*</ion-text> :</ion-label>
+            <ion-input class="ion-text-right" formControlName="lastname">
+            </ion-input>
+          </ion-item>
+
+        </div>
+
+        <ion-item>
+          <ion-label color="primary">Chofer :</ion-label>
+          <ion-toggle mode="ios" formControlName="chofer"></ion-toggle>
+        </ion-item>
+
+        <ion-button class="ion-padding-vertical" type="submit" expand="full" fill="outline" shape="round"
+          [disabled]="editTrabForm.invalid">
+          GUARDAR CAMBIOS
+        </ion-button>
+      </form>
+    </ion-row>
+  </ion-grid>
+</ion-content>

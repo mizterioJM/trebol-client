@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar color="danger">
+
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu-content"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Vehiculos</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="salir()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="animated fadeIn fast">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-slides mode="ios" pager="true" [options]="options">
+    <ion-slide>
+
+      <h1>Vehiculos Registrados</h1>
+
+      <ng-container *ngIf="vehiclos$ | async as vehiculos">
+        <ion-card *ngFor="let vehiculo of vehiculos" class="animated fadeIn fast">
+          <ion-item-sliding #item>
+            <ion-item-options side="start">
+              <ion-item-option color="danger" (click)="deleteVehicle(vehiculo.id, item)">Eliminar</ion-item-option>
+            </ion-item-options>
+
+            <ion-item>
+              <ion-label class="ion-text-left">
+                <p><small> Placa :</small></p>
+                <b>{{vehiculo.placa}}</b>
+              </ion-label>
+              <ion-label>
+                <p><small>Descripcion:</small></p>
+                <b>{{vehiculo.description}}</b>
+              </ion-label>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-card>
+      </ng-container>
+
+    </ion-slide>
+    <ion-slide>
+
+      <ion-row style="height: 100%;" class="ion-padding ion-justify-content-center ion-align-items-center">
+        <form [formGroup]="vehiculoForm" (ngSubmit)="crearVehiculo()">
+          <ion-label class="ion-padding-vertical"><b>DATOS DEL VEHICULO</b></ion-label>
+          <ion-item>
+            <ion-label color="primary">
+              Placa: <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input style="text-transform:uppercase;" class="ion-text-right" formControlName="placa" type="text"
+              onKeyUp="this.value=this.value.toUpperCase();">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Descripcion: <small>(opcional)</small> </ion-label>
+            <ion-input formControlName="description" type="text"></ion-input>
+          </ion-item>
+          <ion-button type="submit" class="ion-padding-vertical" [disabled]="vehiculoForm.invalid" expand="full"
+            shape="round">
+            REGISTRAR VEHICULO
+          </ion-button>
+        </form>
+      </ion-row>
+
+
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="listar()" expand="full" fill="clear" shape="round">
+          LISTAR
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="registrar()" expand="full" fill="clear" shape="round">
+          REGISTRAR
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

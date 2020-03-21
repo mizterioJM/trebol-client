@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+.contenedor {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+
+  .loading {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 150px;
+    height: 150px;
+    background-image: url(^assets/loading2.gif);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
+}
